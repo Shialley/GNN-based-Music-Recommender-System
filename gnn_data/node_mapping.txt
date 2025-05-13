@@ -1,0 +1,21 @@
+song_Seven_(feat._Latto)_(Explicit_Ver.)_Latto,_Jung_Kook	0	song	Seven (feat. Latto) (Explicit Ver.)
+song_LALA_Myke_Towers	1	song	LALA
+song_vampire_Olivia_Rodrigo	2	song	vampire
+song_Cruel_Summer_Taylor_Swift	3	song	Cruel Summer
+song_WHERE_SHE_GOES_Bad_Bunny	4	song	WHERE SHE GOES
+song_Sprinter_Dave,_Central_Cee	5	song	Sprinter
+song_Ella_Baila_Sola_Eslabon_Armado,_Peso_Pluma	6	song	Ella Baila Sola
+song_Columbia_Quevedo	7	song	Columbia
+song_fukumean_Gunna	8	song	fukumean
+song_La_Bebe_-_Remix_Peso_Pluma,_Yng_Lvcas	9	song	La Bebe - Remix
+song_un_x100to_Bad_Bunny,_Grupo_Frontera	10	song	un x100to
+song_Super_Shy_NewJeans	11	song	Super Shy
+song_Flowers_Miley_Cyrus	12	song	Flowers
+song_Daylight_David_Kushner	13	song	Daylight
+song_As_It_Was_Harry_Styles	14	song	As It Was
+song_Kill_Bill_SZA	15	song	Kill Bill
+song_Cupid_-_Twin_Ver._Fifty_Fifty	16	song	Cupid - Twin Ver.
+song_What_Was_I_Made_For?_[From_The_Motion_Picture_"Barbie"]_Billie_Eilish	17	song	What Was I Made For? [From The Motion Picture "Barbie"]
+song_Classy_101_Feid,_Young_Miko	18	song	Classy 101
+song_Like_Crazy_Jimin	19	song	Like Crazy
+song_LADY_GAGA_Gabito_Ballesteros,_Junior_H,_Peso_Pluma	20	song	LADY GAGA

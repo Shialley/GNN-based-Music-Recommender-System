@@ -1,0 +1,175 @@
+{% extends "recommender/base.html" %}
+
+{% block title %}{{ song.track_name }} - GNN音乐推荐系统{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-md-4 text-center mb-4">
+        <img src="https://picsum.photos/seed/{{ song.track_id }}/300/300" class="album-art mb-3" alt="{{ song.track_name }}">
+        <h3>{{ song.track_name }}</h3>
+        <p class="text-muted">{{ song.artist_name }}</p>
+        
+        <!-- 主播放按钮 -->
+        <div class="my-4">
+            <button class="play-button btn btn-outline-light btn-sm rounded-circle" 
+                data-song-id="{{ song.id }}" 
+                data-audio-url="{{ song.preview_url }}"
+                data-title="{{ song.track_name }}"
+                data-artist="{{ song.artist_name }}"
+                data-duration="{{ song.duration|default:'0:30' }}">
+                <i class="bi bi-play-fill"></i>
+            </button>
+        </div>
+        
+        <div class="d-flex justify-content-center gap-3 mt-4">
+            <div class="text-center">
+                <button class="btn btn-outline-light btn-sm rounded-pill px-3" id="add-to-recent">
+                    <i class="bi bi-clock-history"></i> 最近播放
+                </button>
+            </div>
+            <div class="text-center">
+                <button class="btn btn-outline-light btn-sm rounded-pill px-3" id="add-to-favorites">
+                    <i class="bi bi-heart"></i> 添加收藏
+                </button>
+            </div>
+        </div>
+        
+        <!-- 歌曲详情 -->
+        <div class="mt-4 text-start">
+            <div class="card bg-dark">
+                <div class="card-body">
+                    <h5 class="card-title">歌曲信息</h5>
+                    <ul class="list-group list-group-flush bg-transparent">
+                        {% if song.year %}
+                        <li class="list-group-item bg-transparent text-light border-secondary">
+                            <small>发行年份</small>
+                            <div>{{ song.year }}</div>
+                        </li>
+                        {% endif %}
+                        
+                        {% if song.bpm %}
+                        <li class="list-group-item bg-transparent text-light border-secondary">
+                            <small>BPM</small>
+                            <div>{{ song.bpm|floatformat:0 }}</div>
+                        </li>
+                        {% endif %}
+                        
+                        {% if song.energy %}
+                        <li class="list-group-item bg-transparent text-light border-secondary">
+                            <small>能量值</small>
+                            <div>{{ song.energy|floatformat:2 }}</div>
+                        </li>
+                        {% endif %}
+                        
+                        {% if song.danceability %}
+                        <li class="list-group-item bg-transparent text-light border-secondary">
+                            <small>舞蹈性</small>
+                            <div>{{ song.danceability|floatformat:2 }}</div>
+                        </li>
+                        {% endif %}
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="col-md-8">
+        <div class="recommendation-list">
+            <h4 class="recommendation-title">推荐列表</h4>
+            
+            {% if recommendations %}
+                {% for rec in recommendations %}
+                    <div class="song-item">
+                        <div class="d-flex align-items-center">
+                            <div class="flex-shrink-0">
+                                <img src="https://picsum.photos/seed/{{ rec.recommended_song.track_id }}/100/100" class="rounded-circle" width="50" height="50" alt="{{ rec.recommended_song.track_name }}">
+                            </div>
+                            <div class="flex-grow-1 ms-3">
+                                <h5 class="text-light mb-0">
+                                    <a href="{% url 'recommender:song_detail' rec.recommended_song.track_id %}" class="text-decoration-none text-light">
+                                        {{ rec.recommended_song.track_name }}
+                                    </a>
+                                </h5>
+                                <p class="text-muted mb-0">{{ rec.recommended_song.artist_name }}</p>
+                            </div>
+                            <div class="ms-auto text-end">
+                                <!-- 播放按钮 -->
+                                <button class="play-button btn btn-outline-light btn-sm rounded-circle" 
+                                    data-song-id="{{ rec.recommended_song.id }}" 
+                                    data-audio-url="{{ rec.recommended_song.preview_url }}"
+                                    data-title="{{ rec.recommended_song.track_name }}"
+                                    data-artist="{{ rec.recommended_song.artist_name }}"
+                                    data-duration="{{ rec.recommended_song.duration|default:'0:30' }}">
+                                    <i class="bi bi-play-fill"></i>
+                                </button>
+                                <span class="badge bg-secondary">{{ rec.recommended_song.duration|default:"0:30" }}</span>
+                                <div class="mt-1">
+                                    <small class="text-success">相似度: {{ rec.similarity_score|floatformat:2 }}</small>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            {% else %}
+                <div class="alert alert-info">
+                    <i class="bi bi-info-circle me-2"></i>正在生成推荐，请稍后刷新页面。
+                </div>
+                
+                <!-- 刷新推荐按钮 -->
+                <div class="text-center mt-3">
+                    <a href="?refresh=true" class="btn btn-outline-light">
+                        <i class="bi bi-arrow-repeat me-2"></i>刷新推荐
+                    </a>
+                </div>
+            {% endif %}
+        </div>
+    </div>
+</div>
+
+<!-- 添加一些额外JS增强功能 -->
+{% block extra_js %}
+{{ block.super }}
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // 收藏按钮功能
+        const favoriteBtn = document.getElementById('add-to-favorites');
+        if (favoriteBtn) {
+            favoriteBtn.addEventListener('click', function() {
+                this.classList.toggle('btn-outline-light');
+                this.classList.toggle('btn-danger');
+                const icon = this.querySelector('i');
+                if (icon) {
+                    icon.classList.toggle('bi-heart');
+                    icon.classList.toggle('bi-heart-fill');
+                }
+                // 可以发送AJAX请求保存收藏状态
+            });
+        }
+        
+        // 刷新推荐功能
+        const refreshButton = document.querySelector('a[href="?refresh=true"]');
+        if (refreshButton) {
+            refreshButton.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                // 显示加载状态
+                const parentDiv = this.parentElement;
+                parentDiv.innerHTML = '<div class="spinner-border text-light" role="status"><span class="visually-hidden">正在加载...</span></div>';
+                
+                // 发送AJAX请求获取新推荐
+                fetch(window.location.pathname + '?refresh=true')
+                    .then(response => response.text())
+                    .then(html => {
+                        // 刷新页面
+                        window.location.reload();
+                    })
+                    .catch(error => {
+                        console.error('刷新推荐失败:', error);
+                        parentDiv.innerHTML = '<div class="alert alert-danger">刷新失败，请重试</div>';
+                    });
+            });
+        }
+    });
+</script>
+{% endblock %}
+{% endblock %}

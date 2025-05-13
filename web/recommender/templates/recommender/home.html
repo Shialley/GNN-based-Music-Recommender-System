@@ -1,0 +1,89 @@
+{% extends "recommender/base.html" %}
+
+{% block title %}GNN音乐推荐系统{% endblock %}
+
+{% block content %}
+<div class="row mb-4">
+    <div class="col-12 text-center">
+        <h2 class="mb-4">GNN音乐推荐系统</h2>
+        <form class="search-form" method="GET" action="{% url 'recommender:home' %}">
+            <input type="text" name="search" class="form-control" placeholder="搜索歌曲..." value="{{ search_query }}">
+            <button class="btn btn-primary" type="submit"><i class="bi bi-search"></i></button>
+        </form>
+    </div>
+</div>
+
+<!-- 在歌曲列表前添加 -->
+<div id="loading-indicator" class="text-center mb-4">
+    <div class="spinner-border text-light" role="status">
+        <span class="visually-hidden">加载中...</span>
+    </div>
+    <p class="mt-2 text-muted">加载歌曲列表...</p>
+</div>
+
+<div class="row">
+    <div class="col-12">
+        {% if search_query %}
+            <h3 class="mb-3">搜索结果: "{{ search_query }}"</h3>
+        {% else %}
+            <h3 class="mb-3">发现好歌</h3>
+        {% endif %}
+        
+        {% if songs %}
+            <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
+                {% for song in songs %}
+                    <div class="col">
+                        <div class="song-item">
+                            <div class="d-flex align-items-center">
+                                <div class="flex-shrink-0">
+                                    <img src="https://picsum.photos/seed/{{ song.track_id }}/100/100" class="rounded-circle" width="60" height="60" alt="{{ song.track_name }}">
+                                </div>
+                                <div class="flex-grow-1 ms-3">
+                                    <h5 class="text-light mb-1">
+                                        <a href="{% url 'recommender:song_detail' song.track_id %}" class="text-decoration-none text-light">
+                                            {{ song.track_name }}
+                                        </a>
+                                    </h5>
+                                    <p class="text-muted mb-0">{{ song.artist_name }}</p>
+                                    <div class="text-muted small">
+                                        {% if song.bpm %}BPM: {{ song.bpm|floatformat:0 }}{% endif %}
+                                        {% if song.year %} • {{ song.year }}{% endif %}
+                                    </div>
+                                </div>
+                                <div class="ms-auto">
+                                    <!-- 音频播放按钮 -->
+                                    <button class="play-button btn btn-outline-light btn-sm rounded-circle" 
+                                        data-song-id="{{ song.id }}" 
+                                        data-audio-url="{{ song.preview_url }}"
+                                        data-title="{{ song.track_name }}"
+                                        data-artist="{{ song.artist_name }}"
+                                        data-duration="{{ song.duration|default:'0:30' }}">
+                                        <i class="bi bi-play-fill"></i>
+                                    </button>
+                                    <span class="badge bg-secondary">{{ song.duration|default:"0:30" }}</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        {% else %}
+            <div class="alert alert-secondary">
+                {% if search_query %}
+                    没有找到匹配的歌曲，请尝试其他关键词。
+                {% else %}
+                    暂无歌曲数据，请导入歌曲数据后再试。
+                {% endif %}
+            </div>
+        {% endif %}
+    </div>
+</div>
+
+<script>
+    // 页面加载完成后隐藏加载指示器
+    document.addEventListener('DOMContentLoaded', function() {
+        document.getElementById('loading-indicator').style.display = 'none';
+    });
+
+</script>
+{% endblock %}
