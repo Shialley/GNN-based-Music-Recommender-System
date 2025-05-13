@@ -90,7 +90,6 @@ GNN-based-Music-Recommender-System/
 ## 📸 Screenshots
 
 <details>
-<summary>View Screenshots</summary>
 
 ### 网页界面展示
 | 主页 | 搜索结果 | 推荐详情 |
