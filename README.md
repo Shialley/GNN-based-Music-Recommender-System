@@ -63,11 +63,11 @@ This project implements a recommendation system for music using Graph Neural Net
    python manage.py runserver
    ```
 
-2. Open your browser and navigate to http://127.0.0.1:8000/
+2. Open your browser and navigate to `http://127.0.0.1:8000/`
 
 ## 📊 Project Structure
 
-
+```
 GNN-based-Music-Recommender-System/
 ├── GNN_RecommenderSystem.py      # Core GNN model implementation
 ├── dataprepocessing.py           # Data preparation scripts
@@ -85,7 +85,7 @@ GNN-based-Music-Recommender-System/
 │   ├── static/                   # Static files (CSS, JS, audio)
 │   └── requirements.txt          # Python dependencies
 └── README.md                     # This file
-
+```
 
 ## 📸 Screenshots
 
