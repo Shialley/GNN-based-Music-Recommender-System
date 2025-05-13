@@ -95,7 +95,7 @@ GNN-based-Music-Recommender-System/
 ### 网页界面展示
 | 主页 | 搜索结果 | 推荐详情 |
 |------|----------|----------|
-| ![主页界面](GNN-based-Music-Recommender-System/blob/main/Web_illustration/home_page.png) | ![搜索结果](GNN-based-Music-Recommender-System/blob/main/Web_illustration/search_results.png) | ![推荐详情](GNN-based-Music-Recommender-System/blob/main/Web_illustration/song_recommendation_details.png) |
+| ![主页界面](https://github.com/Shialley/GNN-based-Music-Recommender-System/raw/main/Web_illustration/home_page.png) | ![搜索结果](GNN-based-Music-Recommender-System/blob/main/Web_illustration/search_results.png) | ![推荐详情](GNN-based-Music-Recommender-System/blob/main/Web_illustration/song_recommendation_details.png) |
 
 </details>
 
