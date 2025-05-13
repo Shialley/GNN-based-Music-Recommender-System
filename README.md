@@ -92,9 +92,13 @@ GNN-based-Music-Recommender-System/
 <details>
 <summary>View Screenshots</summary>
 
-*[Add screenshots of your application here]*
-<!-- 示例格式 -->
-<!-- ![Interface Demo](screenshots/demo.png) -->
+### 数据导入脚本
+![数据导入脚本示例](GNN-based-Music-Recommender-System/Web_illustration/import_data_demo.png)
+
+### 网页界面展示
+| 主页 | 搜索结果 | 推荐详情 |
+|------|----------|----------|
+| ![主页界面](GNN-based-Music-Recommender-System/Web_illustration/home_page.png) | ![搜索结果](GNN-based-Music-Recommender-System/Web_illustration/search_results.png) | ![推荐详情](GNN-based-Music-Recommender-System/Web_illustration/song_recommendation_details.png) |
 
 </details>
 
