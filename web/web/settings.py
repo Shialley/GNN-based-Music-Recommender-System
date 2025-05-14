@@ -21,7 +21,8 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 sys.path.append(os.path.join(os.path.dirname(BASE_DIR), 'GNN_RecommenderSystem'))
 # 最安全的方式：指定完整的绝对路径
 sys.path.append('D:/python/Recommender_System_GNN/GNN-based-Music-Recommender-System')
-
+# 正确添加GNN_RecommenderSystem.py所在的目录
+sys.path.append('D:/python/Recommender_System_GNN')
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
